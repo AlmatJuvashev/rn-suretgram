@@ -16,13 +16,16 @@ class InstagramPage extends Component {
         this.setState({modalVisible: visible});
     }
 
+    
     renderImages = (obj) => {
         console.log(obj)
         return (
             //this.renderUrls(obj.item.url)
             
             <TouchableHighlight onPress={this.createModalImage.bind(this, obj.item.url)}>
-                <Image source={{uri: obj.item.url}} style={{width: 170, height: 170}} />
+                <Image 
+                    source={{uri: obj.item.url}} 
+                    style={{width: 170, height: 170}} />
             </TouchableHighlight>
         )
     }

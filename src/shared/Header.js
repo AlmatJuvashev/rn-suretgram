@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { View } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
 
 
-const HeaderComponent = ({ headerTitle, homePage, onSwitchPage }) => {
+class HeaderComponent extends Component {
 
-    const {viewStyle, textStyle} = styles;
 
     onPress = () => {
         //this.props.navigation.navigate('Home');
-        onSwitchPage('HomePage');
+        this.props.onSwitchPage('HomePage');
     }
 
-    renderText = ()=> {
-        if(!homePage) {
+    
+    renderText = (homepage)=> {
+        if(!homepage) {
             return (
                 <Button hasText transparent>
                     <Text style={{color: 'black'}} onPress={this.onPress}>Back</Text>
@@ -23,25 +23,29 @@ const HeaderComponent = ({ headerTitle, homePage, onSwitchPage }) => {
         return;
     }
 
+    render () {
+        const headerTitle = this.props.headerTitle;
+        const homePage = this.props.homePage;
 
-    return (
-        <Container>
-            <Header style={viewStyle}>
-            <Left>
-                {this.renderText()}
-            </Left>
-            <Body>
-                <Title>{headerTitle}</Title>
-            </Body>
-            <Right>
-            </Right>
-            </Header>
-      </Container>
-        // <View style={viewStyle}>
-        //     <Text style={textStyle}>{headerTitle}</Text>
-        // </View>
-    );
-};
+        return (
+            <Container>
+                <Header style={styles.viewStyle}>
+                <Left>
+                    {this.renderText(homePage)}
+                </Left>
+                <Body>
+                    <Title>{headerTitle}</Title>
+                </Body>
+                <Right>
+                </Right>
+                </Header>
+          </Container>
+            // <View style={viewStyle}>
+            //     <Text style={textStyle}>{headerTitle}</Text>
+            // </View>
+        );
+    }
+}
 
 
 
