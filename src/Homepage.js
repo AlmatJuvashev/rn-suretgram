@@ -20,11 +20,13 @@ class HomepageComponent extends Component {
             const json = await response.json();
             const arr = json.graphql.user.edge_owner_to_timeline_media.edges;
             const photoArray = arr.map(this.createObjFromArray);
+            console.log(photoArray);
             //this.props.navigation.navigate('Profile', { imgUrls: photoArray});
             //this.setState({ isLoading: false, dataSource: cleanArray });
             this.props.onSwitchPage('InstagramPage');
             this.props.onLoadPhotoArrays(photoArray);
        } catch (error) {
+            console.log(error);
             this.props.onSwitchPage('ErrorPage');
             this.props.errorMsg(error);
             //this.props.navigation.navigate('Error', { errorMsg: error});
@@ -46,7 +48,9 @@ class HomepageComponent extends Component {
         if(this.state.isLoading) {
             return(
                 <View style={container}>
-                    <HeaderComponent headerTitle="Suretgram"/>
+                    <HeaderComponent 
+                        headerTitle="Suretgram"
+                        homePage={true}/>
                     <Image 
                             source = {{uri: this.instagramLogoUrl}}
                             style = {imageStyle} />

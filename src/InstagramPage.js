@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, FlatList, StyleSheet, TouchableHighlight, Modal, Text, View } from 'react-native';
+import { Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
 import HeaderComponent from './shared/Header';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -56,7 +56,10 @@ class InstagramPage extends Component {
         } else {
             return(
                 <View>
-                    <HeaderComponent headerTitle="Images"/>
+                    <HeaderComponent 
+                        headerTitle="Images"
+                        homePage={false}
+                        onSwitchPage={this.props.onSwitchPage}/>
                     <View style={styles.container}>
                         <FlatList
                             horizontal={false}
