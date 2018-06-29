@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import HeaderComponent from '../shared/Header';
+import { Button } from 'react-native-elements'
 
 class ErrorComponent extends Component {
 
@@ -12,44 +13,46 @@ class ErrorComponent extends Component {
    render() {
         // const errorMsg = this.props.navigation.getParam('errorMsg', '');
         const errorMsg = this.props.errorMsg;
-        console.log(errorMsg);
-        const { container, mainTitle, button} = styles 
+
+        const { container, mainTitle, buttonStyle} = styles 
         return (
-            <View style={container}>
-                <HeaderComponent headerTitle="Images"/>
-                <View style={container}>
-                    <Text style={mainTitle}>Error Has Occured</Text>
+            <View style={{flex: 1}}>
+                <HeaderComponent 
+                    headerTitle="Error"
+                    homePage={false}
+                    onSwitchPage={this.props.onSwitchPage}/>
+                <View style={{flex: 1, justifyContent: 'space-around'}}>
+                    <Text style={mainTitle} >Error Has Occured</Text>
                     {/* //<Text>{errorMsg}</Text> */}
-                    <TouchableOpacity
-                        style={button}
-                        onPress={this.onPress}
-                    >
-                        <Text> Return </Text>
-                    </TouchableOpacity>
+                    <Button 
+                        title="Find Photos"
+                        buttonStyle={buttonStyle}
+                        onPress={this.fetchInstagramPhotos}/>
                 </View>
             </View>
         );
    }
 }
 
-
+;
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1
+        flex: 1,
+        justifyContent: 'space-around',
+        backgroundColor: 'rgba(255,0,255,0.05)'
     },
     mainTitle: {
-        flex: 1,
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
+        marginBottom: 100,
     },
-    button: {
-        alignItems: 'center',
-        backgroundColor: '#DDDDDD',
-        padding: 10
-      }
+    buttonStyle: {
+        backgroundColor: 'rgba(186,85,211, 1.0)',
+        borderRadius: 3,
+        borderColor: 'transparent',
+        marginBottom: 100,
+    },
 })
 
 export default ErrorComponent;

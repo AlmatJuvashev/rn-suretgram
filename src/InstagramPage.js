@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
+import { Image, FlatList, StyleSheet, TouchableHighlight, View, Dimensions } from 'react-native';
+import { Overlay } from 'react-native-elements';
 import HeaderComponent from './shared/Header';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -47,41 +48,39 @@ class InstagramPage extends Component {
         const imgUrl = this.props.loadPhotoArrays;
         console.log('Image url:::', imgUrl);
        
-        if (this.state.showPhotoImage) {
-            return (
-                <View style={styles.centralizeItems}>
-                    <Icon name="ios-home" size={24} />
+        return(
+            <View style={styles.container}>
+                <HeaderComponent 
+                    headerTitle="Images"
+                    homePage={false}
+                    onSwitchPage={this.props.onSwitchPage}/>
+                <View style={{ alignSelf: 'center', marginTop: 70}}>
+                    <FlatList
+                        horizontal={false}
+                        numColumns={2}
+                        data={imgUrl}
+                        keyExtractor={this.keyExtractor}
+                        renderItem={this.renderImages}
+                    />
+                </View>
+                <Overlay
+                    isVisible={this.state.showPhotoImage}
+                    onBackdropPress={() => this.setState({showPhotoImage: false})} 
+                    height={350}
+                    width={350}                 
+                    >
                     <TouchableHighlight onPress={this.getBackToImageGalery}>
-                        <Image source={{uri: this.state.url}} style={{width: 300, height: 300}} />
+                        <Image source={{uri: this.state.url}} style={ styles.flexImage } />
                     </TouchableHighlight>
-                </View>
-            )
-
-        } else {
-            return(
-                <View style={styles.container}>
-                    <HeaderComponent 
-                        headerTitle="Images"
-                        homePage={false}
-                        onSwitchPage={this.props.onSwitchPage}/>
-                    <View style={{ alignSelf: 'center', marginTop: 70}}>
-                        <FlatList
-                            horizontal={false}
-                            numColumns={2}
-                            data={imgUrl}
-                            keyExtractor={this.keyExtractor}
-                            renderItem={this.renderImages}
-                        />
-                    </View>
-                </View>
-            )
-        }
+                </Overlay>;
+            </View>
+        )
         
     }
 }
 
 
-
+const win = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container: {
@@ -95,6 +94,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'black',
     },
+    flexImage: {
+        alignSelf: 'center',
+        width: 300,
+        height: 300
+    }
 })
 
 export default InstagramPage;

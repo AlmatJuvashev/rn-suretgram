@@ -47,7 +47,7 @@ export default class AppCopy extends Component {
           <HomepageComponent 
             onSwitchPage={this.changeWindow} 
             onLoadPhotoArrays={this.handlePhotoArrays}
-            errorMsg={this.handleErrorMsg}/>
+            errorMsg={() => this.handleErrorMsg()}/>
         )}
         {currentWindow === 'InstagramPage' && (
           <InstagramPage 
