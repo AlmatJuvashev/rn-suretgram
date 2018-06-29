@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
+import { Container, Header, Left, Body, Right, Button, Title, Text } from 'native-base';
 
 
 class HeaderComponent extends Component {
 
 
     onPress = () => {
-        //this.props.navigation.navigate('Home');
         this.props.onSwitchPage('HomePage');
     }
 
@@ -30,19 +28,15 @@ class HeaderComponent extends Component {
         return (
             <Container>
                 <Header style={styles.viewStyle}>
-                <Left>
-                    {this.renderText(homePage)}
-                </Left>
-                <Body>
-                    <Title>{headerTitle}</Title>
-                </Body>
-                <Right>
-                </Right>
+                    <Left>
+                        {this.renderText(homePage)}
+                    </Left>
+                    <Body>
+                        <Title>{headerTitle}</Title>
+                    </Body>
+                    <Right />
                 </Header>
-          </Container>
-            // <View style={viewStyle}>
-            //     <Text style={textStyle}>{headerTitle}</Text>
-            // </View>
+            </Container>
         );
     }
 }

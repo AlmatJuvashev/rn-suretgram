@@ -5,29 +5,22 @@ import HeaderComponent from './shared/Header';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class InstagramPage extends Component {
-   
-
     state = {
         showPhotoImage: false,
         url: ''
     };
     
-
     keyExtractor = (item) => {
-        console.log('Keys::: ', item.url);
         return item.url
     }
 
     renderImages = (obj) => {
 
-        console.log(obj.item.url);
         return (
-            //this.renderUrls(obj.item.url)
-            
             <TouchableHighlight onPress={this.createModalImage.bind(this, obj.item.url)}>
                 <Image 
                     source={{uri: obj.item.url}} 
-                    style={{width: 150, height: 150}} />
+                    style={styles.flatListImages} />
             </TouchableHighlight>
         )
     }
@@ -44,12 +37,11 @@ class InstagramPage extends Component {
     }
 
     render() {
-        // const imgUrl = this.props.navigation.getParam('imgUrls', '')
+   
         const imgUrl = this.props.loadPhotoArrays;
-        console.log('Image url:::', imgUrl);
-       
+        const {container, flexImage} = styles;
         return(
-            <View style={styles.container}>
+            <View style={container}>
                 <HeaderComponent 
                     headerTitle="Images"
                     homePage={false}
@@ -57,7 +49,7 @@ class InstagramPage extends Component {
                 <View style={{ alignSelf: 'center', marginTop: 70}}>
                     <FlatList
                         horizontal={false}
-                        numColumns={2}
+                        numColumns={3}
                         data={imgUrl}
                         keyExtractor={this.keyExtractor}
                         renderItem={this.renderImages}
@@ -70,7 +62,7 @@ class InstagramPage extends Component {
                     width={350}                 
                     >
                     <TouchableHighlight onPress={this.getBackToImageGalery}>
-                        <Image source={{uri: this.state.url}} style={ styles.flexImage } />
+                        <Image source={{uri: this.state.url}} style={ flexImage } />
                     </TouchableHighlight>
                 </Overlay>;
             </View>
@@ -93,6 +85,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+    },
+    flatListImages: {
+        width: win.width/3,
+        height: win.height/3
     },
     flexImage: {
         alignSelf: 'center',

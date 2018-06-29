@@ -1,30 +1,60 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {createStackNavigator} from 'react-navigation'
+import { View, StyleSheet } from 'react-native';
+
 import HomepageComponent from './src/Homepage';
 import InstagramPage from './src/InstagramPage';
 import ErrorComponent from './src/error/ErrorMessage';
 
 
+export default class App extends Component {
+  state = {
+    currentWindow: 'HomePage',
+    photoArr: [],
+    errorMsg: ''
+  };
 
-export default class App extends Component<Props> {
+  changeWindow = newWindow => {
+    this.setState({ currentWindow: newWindow });
+  };
+
+  handlePhotoArrays = photoArr => {
+    this.setState({photoArr: photoArr})
+  }
+
+  handleErrorMsg = errorMsg => {
+    this.setState({errorMsg})
+  }
+
+
   render() {
+    const currentWindow = this.state.currentWindow;
     return (
-      <AppStackNavigator />
+      <View style={styles.container}>
+        {currentWindow === 'HomePage' && (
+          <HomepageComponent 
+            onSwitchPage={this.changeWindow} 
+            onLoadPhotoArrays={this.handlePhotoArrays}
+            errorMsg={() => this.handleErrorMsg()}/>
+        )}
+        {currentWindow === 'InstagramPage' && (
+          <InstagramPage 
+            onSwitchPage={this.changeWindow}
+            loadPhotoArrays={this.state.photoArr}
+           />
+        )}
+         {currentWindow === 'ErrorPage' && (
+          <ErrorComponent 
+            onSwitchPage={this.changeWindow} 
+            errorMsg = {this.state.errorMsg}/>
+        )}
+      </View>
     );
   }
 }
 
-const AppStackNavigator = new createStackNavigator({
-  Home: { screen: HomepageComponent },
-  Profile: { screen: InstagramPage },
-  Photo: {screen: InstagramPage },
-  Error: {screen: ErrorComponent}
-}, {
-  initialRouteName: 'Home'
-})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ecf0f1',
+  },
+});

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Item, Label, Input, Text, View } from 'native-base';
+import { Container, Form, Item, Label, Input, View } from 'native-base';
 import { StyleSheet, Image } from 'react-native';
 import HeaderComponent from './shared/Header';
 import { Button } from 'react-native-elements'
@@ -20,17 +20,11 @@ class HomepageComponent extends Component {
             const json = await response.json();
             const arr = json.graphql.user.edge_owner_to_timeline_media.edges;
             const photoArray = arr.map(this.createObjFromArray);
-
-            //this.props.navigation.navigate('Profile', { imgUrls: photoArray});
-            //this.setState({ isLoading: false, dataSource: cleanArray });
-            console.log('HOME PAGE ARRAYS:::', photoArray)
             this.props.onLoadPhotoArrays(photoArray);
             this.props.onSwitchPage('InstagramPage');
        } catch (error) {
-            console.log(error);
             this.props.onSwitchPage('ErrorPage');
             this.props.errorMsg(error);
-            //this.props.navigation.navigate('Error', { errorMsg: error});
        }
         
        
@@ -40,13 +34,11 @@ class HomepageComponent extends Component {
     createObjFromArray = (item) => {
         return { url: item.node.display_url, id: item.node.id };
     }
-
   
     render() {
 
         const { container, inputPosition, buttonStyle, imageStyle } = styles
 
-        if(this.state.isLoading) {
             return(
                 <View style={container}>
                     <HeaderComponent 
@@ -71,13 +63,8 @@ class HomepageComponent extends Component {
                    
                 </View>  
             );
-        } 
-        // else {
-        //     console.log('Loading page');
-        //     return (
-        //         <InstagramPage imgUrls={this.state.dataSource}/>
-        //     ) 
-        // }
+         
+
     }
 }
 

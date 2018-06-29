@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import HeaderComponent from '../shared/Header';
 import { Button } from 'react-native-elements'
 
 class ErrorComponent extends Component {
 
     onPress = () => {
-        //this.props.navigation.navigate('Home');
         this.props.onSwitchPage('HomePage');
     }
 
    render() {
-        // const errorMsg = this.props.navigation.getParam('errorMsg', '');
-        const errorMsg = this.props.errorMsg;
-
-        const { container, mainTitle, buttonStyle} = styles 
+        const { mainTitle, buttonStyle} = styles 
         return (
             <View style={{flex: 1}}>
                 <HeaderComponent 
@@ -23,11 +19,10 @@ class ErrorComponent extends Component {
                     onSwitchPage={this.props.onSwitchPage}/>
                 <View style={{flex: 1, justifyContent: 'space-around'}}>
                     <Text style={mainTitle} >Error Has Occured</Text>
-                    {/* //<Text>{errorMsg}</Text> */}
                     <Button 
-                        title="Find Photos"
+                        title="Go Back"
                         buttonStyle={buttonStyle}
-                        onPress={this.fetchInstagramPhotos}/>
+                        onPress={onPress}/>
                 </View>
             </View>
         );
