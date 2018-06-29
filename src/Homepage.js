@@ -20,11 +20,12 @@ class HomepageComponent extends Component {
             const json = await response.json();
             const arr = json.graphql.user.edge_owner_to_timeline_media.edges;
             const photoArray = arr.map(this.createObjFromArray);
-            console.log(photoArray);
+
             //this.props.navigation.navigate('Profile', { imgUrls: photoArray});
             //this.setState({ isLoading: false, dataSource: cleanArray });
-            this.props.onSwitchPage('InstagramPage');
+            console.log('HOME PAGE ARRAYS:::', photoArray)
             this.props.onLoadPhotoArrays(photoArray);
+            this.props.onSwitchPage('InstagramPage');
        } catch (error) {
             console.log(error);
             this.props.onSwitchPage('ErrorPage');

@@ -11,21 +11,22 @@ class InstagramPage extends Component {
         url: ''
     };
     
-     
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+
+    keyExtractor = (item) => {
+        console.log('Keys::: ', item.url);
+        return item.url
     }
 
-    
     renderImages = (obj) => {
-        console.log(obj)
+
+        console.log(obj.item.url);
         return (
             //this.renderUrls(obj.item.url)
             
             <TouchableHighlight onPress={this.createModalImage.bind(this, obj.item.url)}>
                 <Image 
                     source={{uri: obj.item.url}} 
-                    style={{width: 170, height: 170}} />
+                    style={{width: 150, height: 150}} />
             </TouchableHighlight>
         )
     }
@@ -44,7 +45,7 @@ class InstagramPage extends Component {
     render() {
         // const imgUrl = this.props.navigation.getParam('imgUrls', '')
         const imgUrl = this.props.loadPhotoArrays;
-        
+        console.log('Image url:::', imgUrl);
        
         if (this.state.showPhotoImage) {
             return (
@@ -58,16 +59,17 @@ class InstagramPage extends Component {
 
         } else {
             return(
-                <View>
+                <View style={styles.container}>
                     <HeaderComponent 
                         headerTitle="Images"
                         homePage={false}
                         onSwitchPage={this.props.onSwitchPage}/>
-                    <View style={styles.container}>
+                    <View style={{ alignSelf: 'center', marginTop: 70}}>
                         <FlatList
                             horizontal={false}
                             numColumns={2}
                             data={imgUrl}
+                            keyExtractor={this.keyExtractor}
                             renderItem={this.renderImages}
                         />
                     </View>
@@ -83,9 +85,9 @@ class InstagramPage extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1
+        flex: 1,
+        justifyContent: 'space-around',
+        backgroundColor: 'rgba(255,0,255,0.05)'
     },
     centralizeItems: {
         flex: 1,
